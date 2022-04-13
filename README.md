@@ -7,3 +7,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 > ## use React Firebase hook
 >
 > ## get value form event
+
+> ## react firebase environment variables
+
+> ## .env.local file add
