@@ -4,12 +4,12 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCYEdKhBx3qphPvK-Ar2_Q7hzI7bgd5BWU",
-  authDomain: "hotel-management-140c3.firebaseapp.com",
-  projectId: "hotel-management-140c3",
-  storageBucket: "hotel-management-140c3.appspot.com",
-  messagingSenderId: "1061654619099",
-  appId: "1:1061654619099:web:81dfe0b17396280b3c3dfe",
+  apiKey:process.env.REACT_APP_apiKey,
+  authDomain:process.env.REACT_APP_authDomain,
+  projectId:process.env.REACT_APP_projectId,
+  storageBucket:process.env.REACT_APP_storageBucket,
+  messagingSenderId:process.env.REACT_APP_messagingSenderId,
+  appId:process.env.REACT_APP_appId,
 };
 
 // Initialize Firebase

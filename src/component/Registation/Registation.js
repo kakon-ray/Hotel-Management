@@ -11,7 +11,7 @@ const Registation = () => {
   const [passwordError, setpasswordError] = useState("");
   const [emailError, setemailError] = useState("");
 
-  const handleValidation = (email, password, confarmPassword) => {
+  const handleValidation = (email, password) => {
     let formIsValid = true;
 
     if (!email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
@@ -45,18 +45,18 @@ const Registation = () => {
     e.preventDefault();
 
     const email = emailRef.current.value;
-    const password = emailRef.current.value;
-    const confarmPassword = emailRef.current.value;
+    const password = passwordRef.current.value;
+    const confarmPassword = confarmPasswordRef.current.value;
     console.log(email, password, confarmPassword);
-    handleValidation(email, password, confarmPassword);
+    handleValidation(email, password);
     if (password !== confarmPassword) {
       setpasswordError("Two Password Does not match");
       return;
     }
     setpasswordError("");
     createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        navigation("/");
+      .then((result) => {
+        console.log("user create")
       })
       .catch((error) => {
         console.log(error);
@@ -76,8 +76,11 @@ const Registation = () => {
       });
   };
 
+  const loginNavigation = () => {
+    navigation("/login");
+  };
   return (
-    <div className="container" id="registaiton">
+    <div className="container mt-5" id="registaiton">
       <div className="row d-flex justify-content-center">
         <div className="col-md-4">
           <form id="loginform" onSubmit={createAccont}>
@@ -91,6 +94,7 @@ const Registation = () => {
                 aria-describedby="emailHelp"
                 placeholder="Enter email"
                 ref={emailRef}
+                required
               />
               <small id="emailHelp" className="text-danger form-text">
                 {emailError}
@@ -139,9 +143,13 @@ const Registation = () => {
             </div>
           </form>
 
-          <Link to="/login" className="link-style">
-            <p>Login</p>
-          </Link>
+          <p
+            className="text-warning"
+            onClick={loginNavigation}
+            style={{ cursor: "pointer", fontSize: "20px" }}
+          >
+            Login
+          </p>
         </div>
       </div>
     </div>

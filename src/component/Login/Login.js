@@ -42,7 +42,7 @@ const Login = () => {
   const navigation = useNavigate();
   const loginSubmit = (e) => {
     e.preventDefault();
-    handleValidation();
+
     signInWithEmailAndPassword(email, password).then(() => {
       navigation("/");
     });

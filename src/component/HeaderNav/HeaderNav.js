@@ -20,6 +20,8 @@ const HeaderNav = () => {
   const logout = () => {
     signOut(auth);
   };
+
+  console.log(user)
   return (
     <div>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -71,8 +73,9 @@ const HeaderNav = () => {
               <span className="mx-auto d-flex">
                 <span>
                   <h4 className="ms-auto text-light">{user?.displayName}</h4>
+                  <p className="ms-auto text-light">{user?.email}</p>
                 </span>
-                {user ? (
+                {user?.photoURL ? (
                   <img
                     className="img-fluid rounded"
                     style={{
