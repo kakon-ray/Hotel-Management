@@ -11,11 +11,7 @@ const Registation = () => {
   const [passwordError, setpasswordError] = useState("");
   const [emailError, setemailError] = useState("");
 
-  const email = emailRef.current.value;
-  const password = emailRef.current.value;
-  const confarmPassword = emailRef.current.value;
-
-  const handleValidation = (event) => {
+  const handleValidation = (email, password, confarmPassword) => {
     let formIsValid = true;
 
     if (!email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
@@ -48,8 +44,11 @@ const Registation = () => {
   const createAccont = (e) => {
     e.preventDefault();
 
+    const email = emailRef.current.value;
+    const password = emailRef.current.value;
+    const confarmPassword = emailRef.current.value;
     console.log(email, password, confarmPassword);
-    handleValidation();
+    handleValidation(email, password, confarmPassword);
     if (password !== confarmPassword) {
       setpasswordError("Two Password Does not match");
       return;
