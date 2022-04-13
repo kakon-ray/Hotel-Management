@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 const Registation = () => {
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [confarmPassword, setConfarmPassword] = useState("");
+  const emailRef = useRef("");
+  const passwordRef = useRef("");
+  const confarmPasswordRef = useRef("");
 
   const [passwordError, setpasswordError] = useState("");
   const [emailError, setemailError] = useState("");
+
+  const email = emailRef.current.value;
+  const password = emailRef.current.value;
+  const confarmPassword = emailRef.current.value;
 
   const handleValidation = (event) => {
     let formIsValid = true;
@@ -41,14 +45,16 @@ const Registation = () => {
     useCreateUserWithEmailAndPassword(auth);
 
   const navigation = useNavigate();
-  const loginSubmit = (e) => {
+  const createAccont = (e) => {
     e.preventDefault();
+
+    console.log(email, password, confarmPassword);
     handleValidation();
     if (password !== confarmPassword) {
       setpasswordError("Two Password Does not match");
       return;
     }
-
+    setpasswordError("");
     createUserWithEmailAndPassword(email, password)
       .then(() => {
         navigation("/");
@@ -56,8 +62,6 @@ const Registation = () => {
       .catch((error) => {
         console.log(error);
       });
-
-    setpasswordError("");
   };
 
   const [signInWithGoogle] = useSignInWithGoogle(auth);
@@ -65,7 +69,7 @@ const Registation = () => {
   const navigate = useNavigate();
   const googleLogin = () => {
     signInWithGoogle()
-      .then((res) => {
+      .then(() => {
         navigate("/");
       })
       .catch((error) => {
@@ -77,7 +81,7 @@ const Registation = () => {
     <div className="container" id="registaiton">
       <div className="row d-flex justify-content-center">
         <div className="col-md-4">
-          <form id="loginform" onSubmit={loginSubmit}>
+          <form id="loginform" onSubmit={createAccont}>
             <div className="form-group">
               <label>Email address</label>
               <input
@@ -87,7 +91,7 @@ const Registation = () => {
                 name="email"
                 aria-describedby="emailHelp"
                 placeholder="Enter email"
-                onChange={(event) => setEmail(event.target.value)}
+                ref={emailRef}
               />
               <small id="emailHelp" className="text-danger form-text">
                 {emailError}
@@ -101,7 +105,7 @@ const Registation = () => {
                 className="form-control"
                 id="exampleInputPassword1"
                 placeholder="Password"
-                onChange={(event) => setPassword(event.target.value)}
+                ref={passwordRef}
               />
               <small id="passworderror" className="text-danger form-text">
                 {passwordError}
@@ -115,7 +119,7 @@ const Registation = () => {
                 className="form-control"
                 id="conformpassword"
                 placeholder="Conform Password"
-                onChange={(event) => setConfarmPassword(event.target.value)}
+                ref={confarmPasswordRef}
               />
               <small id="passworderror" className="text-danger form-text">
                 {passwordError}
