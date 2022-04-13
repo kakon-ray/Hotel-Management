@@ -69,7 +69,7 @@ const Registation = () => {
   const googleLogin = () => {
     signInWithGoogle()
       .then(() => {
-        navigate("/");
+       
       })
       .catch((error) => {
         console.log(error);
@@ -79,6 +79,10 @@ const Registation = () => {
   const loginNavigation = () => {
     navigation("/login");
   };
+
+  if(user){
+     navigate("/");
+  }
   return (
     <div className="container mt-5" id="registaiton">
       <div className="row d-flex justify-content-center">

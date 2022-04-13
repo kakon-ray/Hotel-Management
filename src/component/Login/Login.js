@@ -43,8 +43,8 @@ const Login = () => {
   const loginSubmit = (e) => {
     e.preventDefault();
 
-    signInWithEmailAndPassword(email, password).then(() => {
-      navigation("/");
+    signInWithEmailAndPassword(email, password).then((result) => {
+    console.log(result)
     });
     console.log(password, email);
   };
@@ -61,7 +61,10 @@ const Login = () => {
         console.log(error);
       });
   };
-
+  
+if(user){
+    navigation("/");
+}
   return (
     <div className="container">
       <div className="row d-flex justify-content-center">
