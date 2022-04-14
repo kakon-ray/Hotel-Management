@@ -7,6 +7,8 @@ import { Routes, Route, Link } from "react-router-dom";
 import Login from "./component/Login/Login";
 import Registation from "./component/Registation/Registation";
 import Other from "./component/Other/Other";
+import HotelDetails from "./component/HotelDetails/HotelDetails";
+import RequireAuth from "./component/RequireAuth/RequireAuth";
 
 function App() {
   return (
@@ -18,6 +20,13 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/registation" element={<Registation />} />
         <Route path="/other" element={<Other />} />
+        
+        <Route path="/:id" element={
+          <RequireAuth>
+            <HotelDetails />
+          </RequireAuth>
+      
+        } />
       </Routes>
     </div>
   );

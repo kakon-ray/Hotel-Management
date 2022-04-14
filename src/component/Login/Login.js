@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 
@@ -10,8 +10,12 @@ const Login = () => {
   const [passwordError, setpasswordError] = useState("");
   const [emailError, setemailError] = useState("");
 
+    let navigate = useNavigate();
+      let location = useLocation();
+
   const handleValidation = (event) => {
     let formIsValid = true;
+
 
     if (!email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
       formIsValid = false;
@@ -39,7 +43,7 @@ const Login = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
-  const navigation = useNavigate();
+
   const loginSubmit = (e) => {
     e.preventDefault();
 
@@ -51,20 +55,23 @@ const Login = () => {
 
   const [signInWithGoogle] = useSignInWithGoogle(auth);
 
-  const navigate = useNavigate();
+
   const googleLogin = () => {
     signInWithGoogle()
       .then((res) => {
-        navigate("/");
+        console.log("Login Successfully")
       })
       .catch((error) => {
         console.log(error);
       });
   };
   
-if(user){
-    navigation("/");
-}
+  let from = location.state?.from?.pathname || "/";
+  if(user){
+       navigate(from, { replace: true });
+  }
+
+
   return (
     <div className="container">
       <div className="row d-flex justify-content-center">

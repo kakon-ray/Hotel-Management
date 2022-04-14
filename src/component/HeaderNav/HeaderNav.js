@@ -21,23 +21,27 @@ const HeaderNav = () => {
     signOut(auth);
   };
 
-  console.log(user)
+ 
   return (
     <div>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="/">React-Bootstrap</Navbar.Brand>
+          <Link to="/" className="nav-link" style={{textDecoration:"none"}}>React-Bootstrap</Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Link to="/login" style={{ textDecoration: "none" }}>
-                <Nav.Link href="/login">Login</Nav.Link>
+              <Link to="/login" style={{ textDecoration: "none" }} className="nav-link">
+                Login
               </Link>
-              <Link to="/registation" style={{ textDecoration: "none" }}>
-                <Nav.Link href="/registation">Registation</Nav.Link>
+              <Link to="/registation" style={{ textDecoration: "none" }} className="nav-link">
+              Registation
               </Link>
+              <Link to="/" style={{ textDecoration: "none" }} className="nav-link">
+             Services
+              </Link>
+         
 
-              <Nav.Link href="home#services">Services</Nav.Link>
+              
               <Nav.Link href="home#about">About</Nav.Link>
               <Link to="/other" style={{ textDecoration: "none" }}>
                 <Nav.Link href="other">Other</Nav.Link>
