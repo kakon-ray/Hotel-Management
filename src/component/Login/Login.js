@@ -13,6 +13,8 @@ const Login = () => {
     let navigate = useNavigate();
       let location = useLocation();
 
+      let from = location.state?.from?.pathname || "/";
+
   const handleValidation = (event) => {
     let formIsValid = true;
 
@@ -48,7 +50,7 @@ const Login = () => {
     e.preventDefault();
 
     signInWithEmailAndPassword(email, password).then((result) => {
-    console.log(result)
+    navigate(from, { replace: true });
     });
     console.log(password, email);
   };
@@ -59,17 +61,16 @@ const Login = () => {
   const googleLogin = () => {
     signInWithGoogle()
       .then((res) => {
-        console.log("Login Successfully")
+        console.log("Login Successfully");
+           navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error);
       });
   };
   
-  let from = location.state?.from?.pathname || "/";
-  if(user){
-       navigate(from, { replace: true });
-  }
+  
+
 
 
   return (

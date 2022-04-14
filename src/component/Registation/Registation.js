@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
@@ -10,6 +10,10 @@ const Registation = () => {
 
   const [passwordError, setpasswordError] = useState("");
   const [emailError, setemailError] = useState("");
+    let navigate = useNavigate();
+      let location = useLocation();
+
+    let from = location.state?.from?.pathname || "/";
 
   const handleValidation = (email, password) => {
     let formIsValid = true;
@@ -40,7 +44,7 @@ const Registation = () => {
   const [createUserWithEmailAndPassword, user] =
     useCreateUserWithEmailAndPassword(auth);
 
-  const navigation = useNavigate();
+
   const createAccont = (e) => {
     e.preventDefault();
 
@@ -53,10 +57,10 @@ const Registation = () => {
       setpasswordError("Two Password Does not match");
       return;
     }
-    setpasswordError("");
+  
     createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        console.log("user create")
+           navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error);
@@ -65,11 +69,11 @@ const Registation = () => {
 
   const [signInWithGoogle] = useSignInWithGoogle(auth);
 
-  const navigate = useNavigate();
+
   const googleLogin = () => {
     signInWithGoogle()
       .then(() => {
-       
+           navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error);
@@ -77,12 +81,10 @@ const Registation = () => {
   };
 
   const loginNavigation = () => {
-    navigation("/login");
+    navigate("/login");
   };
 
-  if(user){
-     navigate("/");
-  }
+
   return (
     <div className="container mt-5" id="registaiton">
       <div className="row d-flex justify-content-center">
